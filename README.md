@@ -29,22 +29,17 @@
 
 | Name | Status |
 | --- | --- |
-| Steam BO2 | Yes |
-| Redacted BO2 | Yes |
-| Steam BO1 | Yes |
-| Steam MW3 | Yes |
-| Steam MW2 | Yes |
-| IW4x | Yes |
-| IW4m | No |
-| Steam COD4 | Yes |
-| IW3xo | Yes |
-| COD4x | No |
+| Steam BO2 | ✅ |
+| Redacted BO2 | ✅ |
+| Steam BO1 | ✅ |
+| Steam MW3 | ✅ |
+| Steam MW2 | ✅ |
+| IW4x | ✅ |
+| IW4m | ❌ |
+| Steam COD4 | ✅ |
+| IW3xo | ✅ |
+| COD4x | ❌ |
 
-
-## Todo
-
-* Make ui look cute >.<
-* Make Icon
 
 ## Credit
 - [Egoulet](https://stackoverflow.com/questions/5132890/c-sharp-replace-bytes-in-byte)
