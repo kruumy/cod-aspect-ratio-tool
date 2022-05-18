@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  Univeral Call Of Duty Aspect Ratio Tool
+  Universal Call Of Duty Aspect Ratio Tool
   <br>
 </h1>
 
