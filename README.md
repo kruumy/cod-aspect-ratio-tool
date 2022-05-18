@@ -43,7 +43,6 @@
 
 ## Todo
 
-* Add support for launch option cod clients
 * Make ui look cute >.<
 
 ## Credit
