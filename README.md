@@ -15,7 +15,8 @@
 2. Start Aspect Ratio Tool.exe.
 3. Select a executable and click change.
 4. Done!
-5. 
+
+
 ## Support
 
 | Name | Status |
