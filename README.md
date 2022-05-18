@@ -9,6 +9,14 @@
   <a href="https://paypal.me/JPauls281"><img src="https://img.shields.io/badge/Donate-Paypal-orange?style=flat-square"></a>
 </div>
 
+<h4 align="center">Aspect Ratio Modifier For Most Call Of Duty Games</a>!</h4>
+<div align="center">
+  <a href="https://github.com/kruumy/cod-aspect-ratio-tool/blob/main/preview.png">
+    <img src="preview.png" alt="Preivew" width="300" height="300">
+  </a>
+</div>
+
+
 ## Usage
 
 1. Download the latest version from **releases**. -->
