@@ -46,6 +46,10 @@
 * Add support for launch option cod clients
 * Make ui look cute >.<
 
+## Credit
+- [Egoulet](https://stackoverflow.com/questions/5132890/c-sharp-replace-bytes-in-byte)
+- [jjxtra](https://github.com/jjxtra/HexAndReplace)
+
 ---
 
 **Please contact me if you find any bugs or have any suggestions.**
