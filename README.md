@@ -44,6 +44,7 @@
 ## Todo
 
 * Make ui look cute >.<
+* Make Icon
 
 ## Credit
 - [Egoulet](https://stackoverflow.com/questions/5132890/c-sharp-replace-bytes-in-byte)
