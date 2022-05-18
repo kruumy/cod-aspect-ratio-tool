@@ -34,11 +34,11 @@
 | Steam BO1 | Yes |
 | Steam MW3 | Yes |
 | Steam MW2 | Yes |
-| IW4x | *Coming Soon* |
-| IW4m | *Coming Soon* |
+| IW4x | Yes |
+| IW4m | No |
 | Steam COD4 | Yes |
-| IW3xo | *Coming Soon* |
-| COD4x | *Coming Soon* |
+| IW3xo | Yes |
+| COD4x | No |
 
 
 ## Todo
