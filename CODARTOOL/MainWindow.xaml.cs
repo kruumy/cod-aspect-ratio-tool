@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -15,7 +16,7 @@ namespace CODARTOOL
         private int selectedARIndex;
         private int currentARIndex;
         private string selectedGame = null;
-        private string[] supportedGames = { "t6mpv43", "t6zmv41", "t6zm", "t6mp", "iw5mp", "iw3mp", "iw4mp", "BlackOpsMP" };
+        private string[] supportedGames = { "t6mpv43", "t6zmv41", "t6zm", "t6mp", "iw5mp", "iw3mp", "iw4mp", "BlackOpsMP", "iw3xo", "iw4x", "iw4m" };
         private string _169 = "39 8E E3 3F";
         private string _219 = "CD 90 18 40";
         private string _329 = "39 8e 63 40";
@@ -23,6 +24,16 @@ namespace CODARTOOL
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CheckBoxChange(1);
+            selectGamePopup.Visibility = Visibility.Visible;
+            currentARLbl.Visibility = Visibility.Hidden;
+            changeARBtn.Visibility = Visibility.Hidden;
+            reslbl.Visibility = Visibility.Hidden;
+            chooselbl.Visibility = Visibility.Hidden;
+            chooselbl.Visibility = Visibility.Hidden;
+            resBox.Visibility = Visibility.Hidden;
+            _169Box.Visibility = Visibility.Hidden;
+            _219Box.Visibility = Visibility.Hidden;
+            _329Box.Visibility = Visibility.Hidden;
         }
         private void _169Box_Checked(object sender, RoutedEventArgs e)
         {
@@ -113,10 +124,44 @@ namespace CODARTOOL
                 {
                     if (filename.Contains(game))
                     {
-                        selectedGame = game;
-                        exeDir.Text = filename;
-                        GetCurrentAR(filename);
-                        changeARBtn.IsEnabled = true;
+
+                        if (filename.Contains("iw3xo") || filename.Contains("iw4x") || filename.Contains("iw4m"))
+                        {
+                            selectedGame = game;
+                            exeDir.Text = filename;
+                            changeARBtn.IsEnabled = true;
+                            currentARLbl.Content = "Game's Current Aspect Ratio: N/A";
+                            currentARIndex = 0;
+                            resBox.Visibility = Visibility.Visible;
+                            selectGamePopup.Visibility = Visibility.Hidden;
+                            currentARLbl.Visibility = Visibility.Hidden;
+                            reslbl.Visibility = Visibility.Visible;
+                            changeARBtn.Visibility = Visibility.Visible;
+                            chooselbl.Visibility = Visibility.Hidden;
+                            chooselbl.Visibility = Visibility.Hidden;
+                            _169Box.Visibility = Visibility.Hidden;
+                            _219Box.Visibility = Visibility.Hidden;
+                            _329Box.Visibility = Visibility.Hidden;
+                            changeARBtn.Content = "Start Game";
+                        }
+                        else
+                        {
+                            selectedGame = game;
+                            exeDir.Text = filename;
+                            GetCurrentAR(filename);
+                            changeARBtn.IsEnabled = true;
+                            resBox.Visibility = Visibility.Hidden;
+                            changeARBtn.Visibility = Visibility.Visible;
+                            selectGamePopup.Visibility = Visibility.Hidden;
+                            currentARLbl.Visibility = Visibility.Visible;
+                            reslbl.Visibility = Visibility.Hidden;
+                            chooselbl.Visibility = Visibility.Visible;
+                            chooselbl.Visibility = Visibility.Visible;
+                            _169Box.Visibility = Visibility.Visible;
+                            _219Box.Visibility = Visibility.Visible;
+                            _329Box.Visibility = Visibility.Visible;
+                            changeARBtn.Content = "Change To Selected Aspect Ratio";
+                        }
                     }
                 }
                 if (selectedGame == null)
@@ -126,6 +171,17 @@ namespace CODARTOOL
             }
         }
         private void changeARBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (exeDir.Text.Contains("iw3xo") || exeDir.Text.Contains("iw4x") || exeDir.Text.Contains("iw4m"))
+            {
+                ChangeArgGame();
+            }
+            else
+            {
+                ChangeHexGame();
+            }
+        }
+        private void ChangeHexGame()
         {
             byte[] find169 = ConvertHexStringToByteArray(Regex.Replace(_169, "0x|[ ,]", string.Empty).Normalize().Trim());
             byte[] find219 = ConvertHexStringToByteArray(Regex.Replace(_219, "0x|[ ,]", string.Empty).Normalize().Trim());
@@ -197,10 +253,44 @@ namespace CODARTOOL
             File.WriteAllBytes(exeDir.Text, output);
             MessageBox.Show("Successfully Changed Aspect Ratio");
             Environment.Exit(0);
+        }
+        public void ChangeArgGame()
+        {
+            double arRes;
+            if (resBox.Text.Contains("x"))
+            {
+                string[] res = resBox.Text.Split('x');
+                arRes = Convert.ToDouble(res[0]) / Convert.ToDouble(res[1]);
+            }
+            else
+            {
+                MessageBox.Show("Please Include 'x' to separate width from height");
+                return;
+            }
 
+            Process p = new Process();
+            p.StartInfo.FileName = exeDir.Text;
+            p.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            p.StartInfo.WorkingDirectory = Path.GetDirectoryName(exeDir.Text);
+            MessageBox.Show("Successfully Changed Aspect Ratio");
+            if (exeDir.Text.Contains("iw4x"))
+            {
+                p.StartInfo.Arguments = $"+set r_aspectRatio custom +set r_customMode {resBox.Text} +set r_customAspectRatio {arRes} +set r_fullscreen 0 +set cl_autoRecord 0";
+                p.Start();
+            }
+            else if (exeDir.Text.Contains("iw3xo"))
+            {
+                p.StartInfo.Arguments = $"+set r_aspectRatio custom +set r_customMode {resBox.Text} +set r_aspectRatio_custom {arRes} +set r_fullscreen 0 +set cl_autoRecord 0";
+                p.Start();
+            }
+            else if (exeDir.Text.Contains("iw4m"))
+            {
+                p.StartInfo.Arguments = $"+set r_aspectRatio custom +set r_customMode {resBox.Text} +set r_customAspectRatio {arRes} +set r_fullscreen 0 +set cl_autoRecord 0";
+                p.Start();
+            }
+            Environment.Exit(0);
         }
 
-        // functions i stole online lol
         private static byte[] ConvertHexStringToByteArray(string hexString)
         {
             if (hexString.Length % 2 != 0)
