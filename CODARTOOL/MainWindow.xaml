@@ -5,7 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CODARTOOL"
         mc:Ignorable="d"
-        Title="Aspect Ratio Tool By Kruumy" MinHeight="240" MinWidth="400"  Height="240" Width="400" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Aspect Ratio Tool By Kruumy"
+        MinHeight="250" 
+        MinWidth="400"
+        MaxHeight="500"
+        MaxWidth="800"
+        Height="250" 
+        Width="400" 
+        Loaded="Window_Loaded" 
+        WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -17,25 +25,129 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="exeDir" Grid.ColumnSpan="4" Grid.RowSpan="1" Grid.Column="1" Grid.Row="1" IsEnabled="False" Margin="0,5,0,5">Game Directory</TextBox>
-        <Button x:Name="exeDirBtn" Grid.ColumnSpan="4" Grid.RowSpan="1" Grid.Column="1" Grid.Row="2" Margin="0,5,0,5" Click="exeDirBtn_Click">Open Game Executable</Button>
-        <Label x:Name="currentARLbl" Grid.ColumnSpan="4" Grid.RowSpan="1" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,5">Game's Current Aspect Ratio: N/A</Label>
-        <Label x:Name="chooselbl" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="1" Grid.Row="4" Margin="0,5,0,5">Choose Aspect Ratio</Label>
-        <CheckBox x:Name="_169Box" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5" Checked="_169Box_Checked">16:9</CheckBox>
-        <CheckBox x:Name="_219Box" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5" Checked="_219Box_Checked">21:9</CheckBox>
-        <CheckBox x:Name="_329Box" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="4" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5" Checked="_329Box_Checked">32:9</CheckBox>
-        <Button x:Name="changeARBtn" Grid.ColumnSpan="4" Grid.RowSpan="1" Grid.Column="1" Grid.Row="5" Margin="0,5,0,5" IsEnabled="False" Click="changeARBtn_Click">Change To Selected Aspect Ratio</Button>
-        <Label x:Name="selectGamePopup" Grid.ColumnSpan="4" Grid.RowSpan="3" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="5" Foreground="#FFA6A4A4">Please Select Game</Label>
-        <TextBox x:Name="resBox" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="2" Grid.Row="3" Margin="48,30,10,30" TextAlignment="Center">1920x1080</TextBox>
-        <Label x:Name="reslbl" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1" Grid.Row="3" Margin="73,25,4,25">Enter Resolution:</Label>
+        <TextBox 
+            x:Name="exeDir" 
+            Grid.ColumnSpan="4" 
+            Grid.RowSpan="1" 
+            Grid.Column="1" 
+            Grid.Row="1" 
+            IsEnabled="False" 
+            Margin="0,5,0,5">
+            Game Directory
+        </TextBox>
+        <Button 
+            x:Name="exeDirBtn" 
+            Grid.ColumnSpan="4" 
+            Grid.RowSpan="1" 
+            Grid.Column="1" 
+            Grid.Row="2"
+            Margin="0,5,0,5" 
+            Click="exeDirBtn_Click">
+            Open Game Executable
+        </Button>
+        <Label 
+            x:Name="currentARLbl" 
+            Grid.ColumnSpan="4"
+            Grid.RowSpan="1" 
+            Grid.Column="1"
+            Grid.Row="3" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Margin="0,5,0,5">
+            Game's Current Aspect Ratio: N/A
+        </Label>
+        <Label 
+            x:Name="chooselbl" 
+            Grid.ColumnSpan="1" 
+            Grid.RowSpan="1" 
+            Grid.Column="1"
+            Grid.Row="4" 
+            Margin="0,5,0,5">
+            Choose Aspect Ratio
+        </Label>
+        <CheckBox 
+            x:Name="_169Box" 
+            Grid.ColumnSpan="1" 
+            Grid.RowSpan="1" 
+            Grid.Column="2"
+            Grid.Row="4" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            Margin="0,5,0,5" 
+            Checked="_169Box_Checked">
+            16:9
+        </CheckBox>
+        <CheckBox 
+            x:Name="_219Box" 
+                  Grid.ColumnSpan="1" 
+            Grid.RowSpan="1" 
+            Grid.Column="3" Grid.Row="4"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" 
+            Margin="0,5,0,5" 
+            Checked="_219Box_Checked">
+            21:9
+        </CheckBox>
+        <CheckBox 
+            x:Name="_329Box" 
+                  Grid.ColumnSpan="1" 
+                  Grid.RowSpan="1" 
+                  Grid.Column="4" 
+                  Grid.Row="4"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" 
+                  Margin="0,5,0,5" 
+                  Checked="_329Box_Checked">
+            32:9
+        </CheckBox>
+        <Button 
+            x:Name="changeARBtn"
+            Grid.ColumnSpan="4" 
+            Grid.RowSpan="1" 
+            Grid.Column="1" 
+            Grid.Row="5"
+            Margin="0,5,0,5" 
+            IsEnabled="False"
+            Click="changeARBtn_Click">
+            Change To Selected Aspect Ratio
+        </Button>
+        <Label 
+            x:Name="selectGamePopup" 
+            Grid.ColumnSpan="4" 
+            Grid.RowSpan="3" Grid.Column="1" 
+            Grid.Row="3"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            FontSize="24" 
+            Margin="5" >
+            Please Select Game
+        </Label>
+        <TextBox 
+            x:Name="resBox"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="2" 
+            Grid.Column="2" 
+            Grid.Row="3" 
+            Margin="48,30,10,30" 
+            TextAlignment="Center">
+            1920x1080
+        </TextBox>
+        <Label 
+            x:Name="reslbl" 
+            Grid.ColumnSpan="2" 
+            Grid.RowSpan="2" 
+            Grid.Column="1" 
+            Grid.Row="3" 
+            Margin="73,25,4,25">
+            Enter Resolution:
+        </Label>
     </Grid>
 
 </Window>

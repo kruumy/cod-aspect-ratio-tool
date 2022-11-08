@@ -16,7 +16,23 @@ namespace CODARTOOL
         private int selectedARIndex;
         private int currentARIndex;
         private string selectedGame = null;
-        private string[] supportedGames = { "t6mpv43", "t6zmv41", "t6zm", "t6mp", "iw5mp", "iw3mp", "iw4mp", "BlackOpsMP", "iw3xo", "iw4x", "iw4m" };
+        private string[] supportedGames =
+        {
+            "t6mpv43",
+            "t6zmv41",
+            "t6zm",
+            "t6mp",
+            "iw5mp",
+            "iw3mp",
+            "iw4mp",
+            "BlackOpsMP",
+            "iw3xo",
+            "iw4x",
+            "iw4m",
+            "BlackOpsSP",
+            "CoDWaW",
+            "CoDWaWmp"
+        };
         private string _169 = "39 8E E3 3F";
         private string _219 = "CD 90 18 40";
         private string _329 = "39 8e 63 40";
@@ -122,6 +138,7 @@ namespace CODARTOOL
 
                 foreach (string game in supportedGames)
                 {
+
                     if (filename.Contains(game))
                     {
 
@@ -162,12 +179,14 @@ namespace CODARTOOL
                             _329Box.Visibility = Visibility.Visible;
                             changeARBtn.Content = "Change To Selected Aspect Ratio";
                         }
+                        return;
                     }
                 }
                 if (selectedGame == null)
                 {
-                    MessageBox.Show("Please Select A Supported Game");
+                    MessageBox.Show("Warning, Game is not in supported list.");
                 }
+
             }
         }
         private void changeARBtn_Click(object sender, RoutedEventArgs e)
