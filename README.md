@@ -33,6 +33,7 @@
 | Steam BO2 | ✅ |
 | Redacted BO2 | ✅ |
 | Steam BO1 | ✅ |
+| Steam WAW | ✅ |
 | Steam MW3 | ✅ |
 | Steam MW2 | ✅ |
 | IW4x | ✅ |
@@ -40,13 +41,6 @@
 | Steam COD4 | ✅ |
 | IW3xo | ✅ |
 | COD4x | ❌ |
-
-# Todo
-- detect game by getting filename from directory rather than checking if whole directory contains a string. (Would fix a rare case where folder is named incorrectly example: "\t6mpv43\iw3xo.exe")
-
-## Credit
-- [Egoulet](https://stackoverflow.com/questions/5132890/c-sharp-replace-bytes-in-byte)
-- [jjxtra](https://github.com/jjxtra/HexAndReplace)
 
 ---
 
