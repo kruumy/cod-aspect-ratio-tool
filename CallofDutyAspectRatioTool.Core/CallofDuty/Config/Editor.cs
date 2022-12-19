@@ -2,14 +2,14 @@
 using System.IO;
 using System.Linq;
 
-namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
+namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
 {
-    internal class ConfigEditor
+    internal class Editor
     {
         public string ConfigPath { get; }
         public string[] RawLines { get; private set; }
 
-        public ConfigEditor(string pathToConfig)
+        public Editor(string pathToConfig)
         {
             if (!File.Exists(pathToConfig))
                 throw new FileNotFoundException(nameof(pathToConfig));

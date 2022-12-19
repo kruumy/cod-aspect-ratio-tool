@@ -15,7 +15,7 @@ namespace CallofDutyAspectRatioTool.GUI
         {
             InitializeComponent();
         }
-        private Core.CallofDuty.Game Game;
+        private Core.CallofDuty.AspectRatio.AspectRatio AR;
         private void OpenGameExecutableBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -25,10 +25,13 @@ namespace CallofDutyAspectRatioTool.GUI
             {
                 try
                 {
-                    Game = new Core.CallofDuty.Game(openFileDialog.FileName);
+                    WidthARTextBox.Text = "";
+                    HeightARTextBox.Text = "";
+                    ChangeAspectRatioBtn.IsEnabled = false;
+                    AR = new Core.CallofDuty.AspectRatio.AspectRatio(openFileDialog.FileName);
                     Task.Factory.StartNew(() =>
                     {
-                        Fraction ar = Game.AspectRatioModifier.AspectRatio;
+                        Fraction ar = AR.Modifier.AspectRatio;
                         Dispatcher.BeginInvoke(new Action(() =>
                         {
                             WidthARTextBox.Text = ar.Numerator.ToString();
@@ -40,8 +43,10 @@ namespace CallofDutyAspectRatioTool.GUI
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Please Select A Support Game.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    GameExecutableTextBox.Text = "Game Executable";
+                    MessageBox.Show("Please Select A Support AR.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    GameExecutableTextBox.Text = "AR Executable";
+                    WidthARTextBox.Text = "";
+                    HeightARTextBox.Text = "";
                     ChangeAspectRatioBtn.IsEnabled = false;
                 }
 
@@ -52,7 +57,7 @@ namespace CallofDutyAspectRatioTool.GUI
         {
             try
             {
-                Game.AspectRatioModifier.AspectRatio = new Core.Utils.Fraction()
+                AR.Modifier.AspectRatio = new Core.Utils.Fraction()
                 {
                     Numerator = Convert.ToUInt16(WidthARTextBox.Text.Trim()),
                     Denominator = Convert.ToUInt16(HeightARTextBox.Text.Trim()),

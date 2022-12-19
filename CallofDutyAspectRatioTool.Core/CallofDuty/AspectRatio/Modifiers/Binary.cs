@@ -3,9 +3,9 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
+namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
 {
-    public sealed class BinaryModifier : ModifierBase
+    public sealed class Binary : Base
     {
         public override Fraction AspectRatio
         {
@@ -30,15 +30,16 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
         {
             get
             {
+                // TODO: temp fix i gotta get a better way
                 byte[] gameBin = File.ReadAllBytes(GamePath);
 
                 byte[] cod4mw2 = { 0xCD, 0xCC, 0xCC, 0x3F };
                 byte[] bo2 = { 0x00, 0x50, 0x43, 0xC7 };
-                byte[] mw3 = {0xCD, 0xCC, 0xCC, 0x3F};
-                byte[] mw3sp =  { 0x00, 0x00, 0x88, 0x40 };
-                byte[] bo1 = {0xD2, 0x53, 0xFB, 0x40};
-                byte[] waw = {0x2E, 0xBA, 0xE8, 0x3E};
-                byte[] wawsp = {0x00, 0xFF, 0x7F, 0x3F};
+                byte[] mw3 = { 0xCD, 0xCC, 0xCC, 0x3F };
+                byte[] mw3sp = { 0x00, 0x00, 0x88, 0x40 };
+                byte[] bo1 = { 0xD2, 0x53, 0xFB, 0x40 };
+                byte[] waw = { 0x2E, 0xBA, 0xE8, 0x3E };
+                byte[] wawsp = { 0x00, 0xFF, 0x7F, 0x3F };
 
                 if (GameName.Contains("t6"))
                     return gameBin.IndexOf(bo2, 1).FirstOrDefault() - 4;
@@ -56,7 +57,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
                     return gameBin.IndexOf(cod4mw2, 1).FirstOrDefault() - 4;
             }
         }
-        public BinaryModifier(string pathToBinary) : base(pathToBinary)
+        public Binary(string pathToBinary) : base(pathToBinary)
         {
         }
     }

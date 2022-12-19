@@ -1,14 +1,14 @@
 ﻿using CallofDutyAspectRatioTool.Core.Utils;
 using System.IO;
 
-namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
+namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
 {
-    public abstract class ModifierBase
+    public abstract class Base
     {
         internal string GamePath { get; }
         public string GameName => Path.GetFileName(GamePath);
         public abstract Fraction AspectRatio { get; set; }
-        public ModifierBase(string pathToBinary)
+        public Base(string pathToBinary)
         {
             if (File.Exists(pathToBinary))
             {

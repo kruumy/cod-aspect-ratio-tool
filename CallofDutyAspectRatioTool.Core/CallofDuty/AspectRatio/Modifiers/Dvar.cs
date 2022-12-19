@@ -2,11 +2,11 @@
 using System;
 using System.IO;
 
-namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
+namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
 {
-    public sealed class DvarModifier : ModifierBase
+    public sealed class Dvar : Base
     {
-        private ConfigEditor[] ConfigEditors { get; }
+        private Config.Editor[] ConfigEditors { get; }
         public override Fraction AspectRatio
         {
             get
@@ -44,7 +44,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
                 }
             }
         }
-        public DvarModifier(string pathToBinary) : base(pathToBinary)
+        public Dvar(string pathToBinary) : base(pathToBinary)
         {
             string gameDir = Directory.GetParent(pathToBinary).FullName;
             string playerDir = Path.Combine(gameDir, "players");
@@ -52,10 +52,10 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
                 throw new DirectoryNotFoundException(playerDir);
 
             string[] configs = Directory.GetFiles(playerDir, "config_mp.cfg", SearchOption.AllDirectories);
-            ConfigEditors = new ConfigEditor[configs.Length];
+            ConfigEditors = new Config.Editor[configs.Length];
             for (int i = 0; i < configs.Length; i++)
             {
-                ConfigEditors[i] = new ConfigEditor(configs[i]);
+                ConfigEditors[i] = new Config.Editor(configs[i]);
             }
         }
     }

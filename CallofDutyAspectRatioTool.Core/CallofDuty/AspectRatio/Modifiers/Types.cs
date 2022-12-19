@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using System.IO;
 
-namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
+namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
 {
-    public enum ModifierTypes
+    public enum Types
     {
         Binary,
         Dvar
@@ -24,6 +24,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
             "iw5mp",
             "iw5sp",
             "iw3mp",
+            "iw3sp",
             "iw4mp",
             "BlackOpsMP",
             "BlackOpsSP",
@@ -32,7 +33,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
             "iw4m"
         };
 
-        internal static ModifierTypes? GetGameType(string gamePath)
+        internal static Types? GetGameType(string gamePath)
         {
             string gameName = Path.GetFileName(gamePath);
             // this check if here because people often rename their iw4x to iw4m for codmvm
@@ -40,21 +41,21 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
             {
                 if (FileVersionInfo.GetVersionInfo(gamePath).OriginalFilename == "iw4x.exe")
                 {
-                    return ModifierTypes.Dvar;
+                    return Types.Dvar;
                 }
             }
             foreach (string key in Dvar)
             {
                 if (gameName.Contains(key))
                 {
-                    return ModifierTypes.Dvar;
+                    return Types.Dvar;
                 }
             }
             foreach (string key in Binary)
             {
                 if (gameName.Contains(key))
                 {
-                    return ModifierTypes.Binary;
+                    return Types.Binary;
                 }
             }
             return null;

@@ -12,27 +12,23 @@
             }
             set
             {
-                if (!float.IsNaN(value) && !float.IsInfinity(value))
-                {
-                    int i = 1;
-                    while (true)
-                    {
-                        float res = value * (float)i;
-                        System.Threading.Thread.Sleep(1); // idk if im crazy but without sleeping this does not work on release build
-                        if (((int)res) == res)
-                        {
-                            Numerator = (int)res;
-                            Denominator = i;
-                            break;
-                        }
-                        i++;
-                    }
-                }
-                else
+                if (float.IsNaN(value) || float.IsInfinity(value))
                 {
                     Numerator = 0;
                     Denominator = 0;
+                    return;
                 }
+                int i = 1;
+                float res;
+                do
+                {
+                    res = value * i;
+                    System.Threading.Thread.Sleep(1); // idk if im crazy but without sleeping this does not work on release build
+                    i++;
+                } while (((int)res) != res);
+                Numerator = (int)res;
+                Denominator = i - 1;
+
             }
         }
 
