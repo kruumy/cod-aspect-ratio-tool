@@ -32,19 +32,28 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
             {
                 byte[] gameBin = File.ReadAllBytes(GamePath);
 
-
-
                 byte[] cod4mw2 = { 0xCD, 0xCC, 0xCC, 0x3F };
                 byte[] bo2 = { 0x00, 0x50, 0x43, 0xC7 };
+                byte[] mw3 = {0xCD, 0xCC, 0xCC, 0x3F};
+                byte[] mw3sp =  { 0x00, 0x00, 0x88, 0x40 };
+                byte[] bo1 = {0xD2, 0x53, 0xFB, 0x40};
+                byte[] waw = {0x2E, 0xBA, 0xE8, 0x3E};
+                byte[] wawsp = {0x00, 0xFF, 0x7F, 0x3F};
 
                 if (GameName.Contains("t6"))
-                {
                     return gameBin.IndexOf(bo2, 1).FirstOrDefault() - 4;
-                }
+                else if (GameName.Contains("iw5mp"))
+                    return gameBin.IndexOf(mw3, 1).FirstOrDefault() + 4;
+                else if (GameName.Contains("iw5sp"))
+                    return gameBin.IndexOf(mw3sp, 1).FirstOrDefault() + 4;
+                else if (GameName.Contains("BlackOps"))
+                    return gameBin.IndexOf(bo1, 1).FirstOrDefault() + 4;
+                else if (GameName.Contains("CoDWaWmp"))
+                    return gameBin.IndexOf(waw, 1).FirstOrDefault() + 4;
+                else if (GameName.Contains("CoDWaW"))
+                    return gameBin.IndexOf(wawsp, 1).FirstOrDefault() - 4;
                 else
-                {
                     return gameBin.IndexOf(cod4mw2, 1).FirstOrDefault() - 4;
-                }
             }
         }
         public BinaryModifier(string pathToBinary) : base(pathToBinary)
