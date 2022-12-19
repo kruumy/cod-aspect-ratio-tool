@@ -61,12 +61,11 @@
                 Margin="5"
                 MinWidth="40"
                 TextAlignment="Center">
-                1920
             </TextBox>
             <TextBlock
                 Grid.Column="3"
                 Margin="5">
-                x
+                :
             </TextBlock>
             <TextBox
                 x:Name="HeightARTextBox"
@@ -74,7 +73,6 @@
                 Margin="5"
                 MinWidth="40"
                 TextAlignment="Center">
-                1080
             </TextBox>
         </Grid>
         <Button

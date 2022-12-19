@@ -1,5 +1,7 @@
-﻿using Microsoft.Win32;
+﻿using CallofDutyAspectRatioTool.Core.Utils;
+using Microsoft.Win32;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace CallofDutyAspectRatioTool.GUI
@@ -24,9 +26,16 @@ namespace CallofDutyAspectRatioTool.GUI
                 try
                 {
                     Game = new Core.CallofDuty.Game(openFileDialog.FileName);
-                    WidthARTextBox.Text = Game.AspectRatioModifier.AspectRatio.Numerator.ToString();
-                    HeightARTextBox.Text = Game.AspectRatioModifier.AspectRatio.Denominator.ToString();
-                    ChangeAspectRatioBtn.IsEnabled = true;
+                    Task.Factory.StartNew(() =>
+                    {
+                        Fraction ar = Game.AspectRatioModifier.AspectRatio;
+                        Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            WidthARTextBox.Text = ar.Numerator.ToString();
+                            HeightARTextBox.Text = ar.Denominator.ToString();
+                            ChangeAspectRatioBtn.IsEnabled = true;
+                        }));
+                    });
                     GameExecutableTextBox.Text = openFileDialog.FileName;
                 }
                 catch (ArgumentException)
