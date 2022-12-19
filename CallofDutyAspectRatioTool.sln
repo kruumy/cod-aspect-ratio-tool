@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33103.201
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CallofDutyAspectRatioTool.Core", "CallofDutyAspectRatioTool.Core\CallofDutyAspectRatioTool.Core.csproj", "{DC5545F2-CE41-44DA-B02A-21BBDC49FC0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallofDutyAspectRatioTool.GUI", "CallofDutyAspectRatioTool.GUI\CallofDutyAspectRatioTool.GUI.csproj", "{33E9E673-96E1-45F8-BF49-7B84058EBD64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC5545F2-CE41-44DA-B02A-21BBDC49FC0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC5545F2-CE41-44DA-B02A-21BBDC49FC0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC5545F2-CE41-44DA-B02A-21BBDC49FC0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC5545F2-CE41-44DA-B02A-21BBDC49FC0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33E9E673-96E1-45F8-BF49-7B84058EBD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33E9E673-96E1-45F8-BF49-7B84058EBD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33E9E673-96E1-45F8-BF49-7B84058EBD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33E9E673-96E1-45F8-BF49-7B84058EBD64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DD3FE71-7ED7-4819-A313-57ACFE3E81DC}
+	EndGlobalSection
+EndGlobal
