@@ -37,10 +37,10 @@
 | Steam MW3 | ✅ |
 | Steam MW2 | ✅ |
 | IW4x | ✅ |
-| IW4m | ❌ |
+| IW4m | ✅ |
 | Steam COD4 | ✅ |
 | IW3xo | ✅ |
-| COD4x | ❌ |
+| COD4x | ? |
 
 ---
 
