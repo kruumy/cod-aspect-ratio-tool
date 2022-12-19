@@ -15,7 +15,9 @@ namespace CallofDutyAspectRatioTool.GUI
         {
             InitializeComponent();
         }
+
         private Core.CallofDuty.AspectRatio.AspectRatio AR;
+
         private void OpenGameExecutableBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -43,13 +45,12 @@ namespace CallofDutyAspectRatioTool.GUI
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Please Select A Support AR.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    GameExecutableTextBox.Text = "AR Executable";
+                    MessageBox.Show("Please Select A Supported Game.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    GameExecutableTextBox.Text = "Game Executable";
                     WidthARTextBox.Text = "";
                     HeightARTextBox.Text = "";
                     ChangeAspectRatioBtn.IsEnabled = false;
                 }
-
             }
         }
 

@@ -26,6 +26,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
                 File.WriteAllBytes(GamePath, gameBin);
             }
         }
+
         private uint AspectRatioIndexInBinary
         {
             get
@@ -57,6 +58,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
                     return gameBin.IndexOf(cod4mw2, 1).FirstOrDefault() - 4;
             }
         }
+
         public Binary(string pathToBinary) : base(pathToBinary)
         {
         }

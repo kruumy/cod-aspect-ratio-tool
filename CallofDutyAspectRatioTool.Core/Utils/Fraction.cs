@@ -1,83 +1,270 @@
-﻿namespace CallofDutyAspectRatioTool.Core.Utils
+﻿using System;
+
+namespace CallofDutyAspectRatioTool.Core.Utils
 {
     public struct Fraction
     {
-        public int Numerator { get; set; }
-        public int Denominator { get; set; }
-        public float Decimal
+        public long Numerator { get; set; }
+        public long Denominator { get; set; }
+
+        public double Decimal
         {
             get
             {
-                return (float)Numerator / (float)Denominator;
+                return (double)Numerator / (double)Denominator;
             }
             set
             {
-                if (float.IsNaN(value) || float.IsInfinity(value))
-                {
-                    Numerator = 0;
-                    Denominator = 0;
-                    return;
-                }
-                int i = 1;
-                float res;
-                do
-                {
-                    res = value * i;
-                    System.Threading.Thread.Sleep(1); // idk if im crazy but without sleeping this does not work on release build
-                    i++;
-                } while (((int)res) != res);
-                Numerator = (int)res;
-                Denominator = i - 1;
+                // To handle if value is a float and is repeating, probably not the best solution.
+                string fstring = ((float)value).ToString();
+                int v1 = int.Parse(fstring[fstring.Length - 1].ToString()) - 1;
+                int v2 = int.Parse(fstring[fstring.Length - 2].ToString());
+                int v3 = int.Parse(fstring[fstring.Length - 3].ToString());
+                if (v1 == v2 && v2 == v3)
+                    value = RepeatingFloatToDouble((float)value);
 
+                long fractionNumerator = (long)value;
+                double fractionDenominator = 1;
+                double previousDenominator = 0;
+                double remainingDigits = value;
+                int maxIterations = 594;
+                while (remainingDigits != Math.Floor(remainingDigits) && Math.Abs(value - (fractionNumerator / fractionDenominator)) > double.Epsilon)
+                {
+                    remainingDigits = 1.0 / (remainingDigits - Math.Floor(remainingDigits));
+                    double scratch = fractionDenominator;
+                    fractionDenominator = (Math.Floor(remainingDigits) * fractionDenominator) + previousDenominator;
+                    fractionNumerator = (long)(value * fractionDenominator + 0.5);
+                    previousDenominator = scratch;
+                    if (maxIterations-- < 0)
+                        break;
+                }
+                Numerator = fractionNumerator * Math.Sign(value);
+                Denominator = (long)fractionDenominator;
             }
         }
 
-        public Fraction Simplified
+        public static double RepeatingFloatToDouble(float f)
         {
-            get
+            char[] fstring = f.ToString().ToCharArray();
+            char lastNum = fstring[fstring.Length - 2];
+            fstring[fstring.Length - 1] = lastNum;
+            string fstrings = new string(fstring);
+            for (int i = 0; i < 16; i++)
+                fstrings += lastNum;
+            return double.Parse(fstrings);
+        }
+
+        public static Fraction NaN => new Fraction()
+        {
+            Numerator = 0,
+            Denominator = 0
+        };
+
+        public static Fraction PositiveInfinity => new Fraction()
+        {
+            Numerator = 1,
+            Denominator = 0
+        };
+
+        public static Fraction NegativeInfinity => new Fraction()
+        {
+            Numerator = -1,
+            Denominator = 0
+        };
+
+        public static Fraction Zero => new Fraction()
+        {
+            Numerator = 0,
+            Denominator = 1
+        };
+
+        public static Fraction Epsilon => new Fraction()
+        {
+            Numerator = 1,
+            Denominator = long.MaxValue
+        };
+
+        public static Fraction MaxValue => new Fraction()
+        {
+            Numerator = long.MaxValue,
+            Denominator = 1
+        };
+
+        public static Fraction MinValue => new Fraction()
+        {
+            Numerator = long.MinValue,
+            Denominator = 1
+        };
+
+        public override string ToString() => Numerator.ToString() + "/" + Denominator.ToString();
+
+        public bool IsNaN => Denominator == 0 && Numerator == 0;
+        public bool IsInfinity => Denominator == 0 && Numerator != 0;
+        public bool IsPositiveInfinity => Denominator == 0 && Numerator > 0;
+        public bool IsNegativeInfinity => Denominator == 0 && Numerator < 0;
+
+        public static Fraction operator -(Fraction left)
+        {
+            return new Fraction()
             {
-                int gcd = GetGCD(Numerator, Denominator);
+                Numerator = -left.Numerator,
+                Denominator = left.Denominator,
+            };
+        }
+
+        public static Fraction operator +(Fraction left, Fraction right)
+        {
+            if (left.IsNaN || right.IsNaN)
+                return NaN;
+            long gcd = GCD(left.Denominator, right.Denominator);
+            long leftDenominator = left.Denominator / gcd;
+            long rightDenominator = right.Denominator / gcd;
+            checked
+            {
+                long numerator = left.Numerator * rightDenominator + right.Numerator * leftDenominator;
+                long denominator = leftDenominator * rightDenominator * gcd;
+
                 return new Fraction()
                 {
-                    Numerator = Numerator / gcd,
-                    Denominator = Denominator / gcd
+                    Numerator = numerator,
+                    Denominator = denominator
                 };
             }
         }
 
-        private int GetGCD(int a, int b)
+        public static Fraction operator -(Fraction left, Fraction right)
         {
-            if (a == 0 || b == 0)
-                return a + b;
-            return GetGCD(b, a % b);
+            return left + -right;
         }
 
-        public override string ToString()
+        public static Fraction operator *(Fraction left, Fraction right)
         {
-            return $"{Numerator}/{Denominator}";
-        }
-        public static implicit operator float(Fraction f)
-        {
-            return f.Decimal;
-        }
-        public static implicit operator Fraction(float f)
-        {
-            return new Fraction
+            if (left.IsNaN || right.IsNaN)
+                return NaN;
+            return new Fraction()
             {
-                Decimal = f
-            };
-        }
-        public static implicit operator double(Fraction f)
-        {
-            return f.Decimal;
-        }
-        public static implicit operator Fraction(double d)
-        {
-            return new Fraction
-            {
-                Decimal = (float)d
+                Decimal = left.Decimal * right.Decimal
             };
         }
 
+        public static Fraction operator /(Fraction left, Fraction right)
+        {
+            return left * right.Inverse();
+        }
+
+        public static Fraction operator %(Fraction left, Fraction right)
+        {
+            if (left.IsNaN || right.IsNaN)
+                return NaN;
+            checked
+            {
+                Int64 quotient = (Int64)(left / right);
+                Fraction whole = new Fraction()
+                {
+                    Numerator = quotient * right.Numerator,
+                    Denominator = right.Denominator
+                };
+                return left - whole;
+            }
+        }
+
+        public static bool operator ==(Fraction left, Fraction right)
+        {
+            return left.Decimal == right.Decimal;
+        }
+
+        public static bool operator !=(Fraction left, Fraction right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator <(Fraction left, Fraction right)
+        {
+            return left.Decimal < right.Decimal;
+        }
+
+        public static bool operator >(Fraction left, Fraction right)
+        {
+            return left.Decimal > right.Decimal;
+        }
+
+        public static bool operator <=(Fraction left, Fraction right)
+        {
+            return left.Decimal <= right.Decimal;
+        }
+
+        public static bool operator >=(Fraction left, Fraction right)
+        {
+            return left.Decimal >= right.Decimal;
+        }
+
+        public static implicit operator Fraction(double value)
+        {
+            return new Fraction()
+            {
+                Decimal = value
+            };
+        }
+
+        public static explicit operator double(Fraction frac)
+        {
+            return frac.Decimal;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Fraction))
+                return false;
+            return this == (Fraction)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            Fraction frac = Reduce();
+            int numeratorHash = frac.Numerator.GetHashCode();
+            int denominatorHash = frac.Denominator.GetHashCode();
+            return (numeratorHash ^ denominatorHash);
+        }
+
+        public Fraction Reduce()
+        {
+            long iGCD = GCD(Numerator, Denominator);
+            return new Fraction()
+            {
+                Numerator = this.Numerator / iGCD,
+                Denominator = this.Denominator / iGCD
+            };
+        }
+
+        public Fraction Inverse()
+        {
+            return new Fraction()
+            {
+                Numerator = this.Denominator,
+                Denominator = this.Numerator
+            };
+        }
+
+        private static long GCD(long left, long right)
+        {
+            if (left < 0)
+                left = -left;
+            if (right < 0)
+                right = -right;
+            if (left < 2 || right < 2)
+                return 1;
+            do
+            {
+                if (left < right)
+                {
+                    long temp = left;
+                    left = right;
+                    right = temp;
+                }
+                left %= right;
+            } while (left != 0);
+
+            return right;
+        }
     }
 }

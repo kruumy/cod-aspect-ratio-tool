@@ -8,6 +8,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
         Binary,
         Dvar
     }
+
     public static class ModifierTypesList
     {
         public static string[] Dvar =
@@ -15,6 +16,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
             "iw3xo",
             "iw4x",
         };
+
         public static string[] Binary =
         {
             "t6mpv43",
@@ -27,7 +29,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
             "iw3sp",
             "iw4mp",
             "BlackOpsMP",
-            "BlackOpsSP",
+            "BlackOps",
             "CoDWaW",
             "CoDWaWmp",
             "iw4m"

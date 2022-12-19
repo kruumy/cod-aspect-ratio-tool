@@ -17,6 +17,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
             ConfigPath = pathToConfig;
             RawLines = File.ReadAllLines(pathToConfig);
         }
+
         public void WriteDvar(string dvar, string value)
         {
             string fullLine = $"seta {dvar} \"{value}\"";
@@ -36,6 +37,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
             }
             Save();
         }
+
         public string ReadDvar(string dvar)
         {
             for (int i = 0; i < RawLines.Length; i++)
@@ -49,6 +51,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
             }
             throw new KeyNotFoundException();
         }
+
         public bool DoesDvarExist(string dvar)
         {
             for (int i = 0; i < RawLines.Length; i++)
@@ -60,6 +63,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
             }
             return false;
         }
+
         private void Save()
         {
             File.WriteAllLines(ConfigPath, RawLines);

@@ -7,15 +7,16 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
     public sealed class Dvar : Base
     {
         private Config.Editor[] ConfigEditors { get; }
+
         public override Fraction AspectRatio
         {
             get
             {
                 Fraction result = new Fraction();
-                foreach (var editor in ConfigEditors)
+                foreach (Config.Editor editor in ConfigEditors)
                 {
                     string dvar = "r_customMode";
-                    if (!editor.DoesDvarExist(dvar))
+                    if (!editor.DoesDvarExist(dvar) || string.IsNullOrEmpty(editor.ReadDvar(dvar)))
                     {
                         editor.WriteDvar(dvar, "1920x1080");
                     }
@@ -27,7 +28,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
             }
             set
             {
-                foreach (var editor in ConfigEditors)
+                foreach (Config.Editor editor in ConfigEditors)
                 {
                     editor.WriteDvar("r_customMode", value.ToString().Replace('/', 'x'));
                     editor.WriteDvar("r_fullscreen", "0");
@@ -44,6 +45,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
                 }
             }
         }
+
         public Dvar(string pathToBinary) : base(pathToBinary)
         {
             string gameDir = Directory.GetParent(pathToBinary).FullName;
@@ -51,7 +53,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
             if (!Directory.Exists(playerDir))
                 throw new DirectoryNotFoundException(playerDir);
 
-            string[] configs = Directory.GetFiles(playerDir, "config_mp.cfg", SearchOption.AllDirectories);
+            string[] configs = Directory.GetFiles(playerDir, "*.cfg", SearchOption.AllDirectories);
             ConfigEditors = new Config.Editor[configs.Length];
             for (int i = 0; i < configs.Length; i++)
             {

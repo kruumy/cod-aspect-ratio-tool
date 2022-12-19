@@ -8,6 +8,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
         internal string GamePath { get; }
         public string GameName => Path.GetFileName(GamePath);
         public abstract Fraction AspectRatio { get; set; }
+
         public Base(string pathToBinary)
         {
             if (File.Exists(pathToBinary))
