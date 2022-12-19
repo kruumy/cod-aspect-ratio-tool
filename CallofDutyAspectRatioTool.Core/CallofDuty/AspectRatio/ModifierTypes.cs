@@ -22,6 +22,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
             "t6zm",
             "t6mp",
             "iw5mp",
+            "iw5sp",
             "iw3mp",
             "iw4mp",
             "BlackOpsMP",

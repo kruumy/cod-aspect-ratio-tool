@@ -34,7 +34,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
 
 
 
-                byte[] iwEngine = { 0xCD, 0xCC, 0xCC, 0x3F };
+                byte[] cod4mw2 = { 0xCD, 0xCC, 0xCC, 0x3F };
                 byte[] bo2 = { 0x00, 0x50, 0x43, 0xC7 };
 
                 if (GameName.Contains("t6"))
@@ -43,7 +43,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
                 }
                 else
                 {
-                    return gameBin.IndexOf(iwEngine, 1).FirstOrDefault() - 4;
+                    return gameBin.IndexOf(cod4mw2, 1).FirstOrDefault() - 4;
                 }
             }
         }
