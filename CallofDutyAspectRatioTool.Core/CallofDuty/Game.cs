@@ -22,7 +22,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty
 
             ModifierTypes? arType = ModifierTypesList.GetGameType(GamePath);
             if (arType != null)
-                 AspectRatioModifierType = (ModifierTypes)arType;
+                AspectRatioModifierType = (ModifierTypes)arType;
             else
                 throw new ArgumentException(nameof(GamePath));
 

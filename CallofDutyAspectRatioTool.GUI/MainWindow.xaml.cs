@@ -44,7 +44,7 @@ namespace CallofDutyAspectRatioTool.GUI
                     GameExecutableTextBox.Text = "Game Executable";
                     ChangeAspectRatioBtn.IsEnabled = false;
                 }
-                
+
             }
         }
 

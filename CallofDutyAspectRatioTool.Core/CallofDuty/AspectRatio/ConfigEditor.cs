@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
 {
@@ -13,7 +11,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
 
         public ConfigEditor(string pathToConfig)
         {
-            if(!File.Exists(pathToConfig))
+            if (!File.Exists(pathToConfig))
                 throw new FileNotFoundException(nameof(pathToConfig));
 
             ConfigPath = pathToConfig;
@@ -34,7 +32,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
             }
             if (!alreadyExists)
             {
-                RawLines = RawLines.Concat(new string[] { fullLine }).ToArray(); 
+                RawLines = RawLines.Concat(new string[] { fullLine }).ToArray();
             }
             Save();
         }

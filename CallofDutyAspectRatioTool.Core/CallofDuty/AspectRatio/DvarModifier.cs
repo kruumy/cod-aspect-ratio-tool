@@ -29,7 +29,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
             {
                 foreach (var editor in ConfigEditors)
                 {
-                    editor.WriteDvar("r_customMode", value.ToString().Replace('/','x'));
+                    editor.WriteDvar("r_customMode", value.ToString().Replace('/', 'x'));
                     editor.WriteDvar("r_fullscreen", "0");
                     editor.WriteDvar("r_aspectRatio", "custom");
 
@@ -37,7 +37,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio
                     {
                         editor.WriteDvar("r_aspectRatio_custom", value.Decimal.ToString());
                     }
-                    else if(GameName.Contains("iw4"))
+                    else if (GameName.Contains("iw4"))
                     {
                         editor.WriteDvar("r_customAspectRatio", value.Decimal.ToString());
                     }

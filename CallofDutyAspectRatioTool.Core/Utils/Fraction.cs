@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-
-namespace CallofDutyAspectRatioTool.Core.Utils
+﻿namespace CallofDutyAspectRatioTool.Core.Utils
 {
     public struct Fraction
     {
@@ -16,7 +12,7 @@ namespace CallofDutyAspectRatioTool.Core.Utils
             }
             set
             {
-                if(!float.IsNaN(value) && !float.IsInfinity(value))
+                if (!float.IsNaN(value) && !float.IsInfinity(value))
                 {
                     int i = 1;
                     while (true)
