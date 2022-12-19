@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 
 namespace CallofDutyAspectRatioTool.Core.Utils
@@ -18,9 +19,10 @@ namespace CallofDutyAspectRatioTool.Core.Utils
                 if(!float.IsNaN(value) && !float.IsInfinity(value))
                 {
                     int i = 1;
-                    while (i < int.MaxValue)
+                    while (true)
                     {
                         float res = value * (float)i;
+                        System.Threading.Thread.Sleep(1); // idk if im crazy but without sleeping this does not work on release build
                         if (((int)res) == res)
                         {
                             Numerator = (int)res;
