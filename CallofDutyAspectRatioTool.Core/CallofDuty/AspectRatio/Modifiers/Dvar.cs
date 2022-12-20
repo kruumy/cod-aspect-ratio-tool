@@ -16,11 +16,11 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
                 foreach (Config.Editor editor in ConfigEditors)
                 {
                     string dvar = "r_customMode";
-                    if (!editor.DoesDvarExist(dvar) || string.IsNullOrEmpty(editor.ReadDvar(dvar)))
+                    if (!editor.DoesDvarExist(dvar) || string.IsNullOrEmpty(editor.ReadDvar<string>(dvar)))
                     {
                         editor.WriteDvar(dvar, "1920x1080");
                     }
-                    string[] res = editor.ReadDvar(dvar).Split('x');
+                    string[] res = editor.ReadDvar<string>(dvar).Split('x');
                     result.Numerator = Convert.ToInt32(res[0]);
                     result.Denominator = Convert.ToInt32(res[1]);
                 }
@@ -31,16 +31,16 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
                 foreach (Config.Editor editor in ConfigEditors)
                 {
                     editor.WriteDvar("r_customMode", value.ToString().Replace('/', 'x'));
-                    editor.WriteDvar("r_fullscreen", "0");
+                    editor.WriteDvar("r_fullscreen", 0);
                     editor.WriteDvar("r_aspectRatio", "custom");
 
                     if (GameName.Contains("iw3xo"))
                     {
-                        editor.WriteDvar("r_aspectRatio_custom", ((float)value.Decimal).ToString());
+                        editor.WriteDvar<float>("r_aspectRatio_custom", (float)value.Decimal);
                     }
                     else if (GameName.Contains("iw4"))
                     {
-                        editor.WriteDvar("r_customAspectRatio", ((float)value.Decimal).ToString());
+                        editor.WriteDvar<float>("r_customAspectRatio", (float)value.Decimal);
                     }
                 }
             }

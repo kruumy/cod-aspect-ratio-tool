@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
             RawLines = File.ReadAllLines(pathToConfig);
         }
 
-        public void WriteDvar(string dvar, string value)
+        public void WriteDvar<T>(string dvar, T value)
         {
             string fullLine = $"seta {dvar} \"{value}\"";
 
@@ -38,7 +39,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
             Save();
         }
 
-        public string ReadDvar(string dvar)
+        public T ReadDvar<T>(string dvar)
         {
             for (int i = 0; i < RawLines.Length; i++)
             {
@@ -46,7 +47,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.Config
                 {
                     int qi = RawLines[i].IndexOf('"') + 1;
                     int lqi = RawLines[i].LastIndexOf('"');
-                    return RawLines[i].Substring(qi, lqi - qi);
+                    return (T)Convert.ChangeType(RawLines[i].Substring(qi, lqi - qi), typeof(T));
                 }
             }
             throw new KeyNotFoundException();
