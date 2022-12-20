@@ -4,8 +4,8 @@
     {
         public static bool IsRepeating(this float f)
         {
-            char[] fstring = (f).ToString().ToCharArray();
-            if (fstring.Length <= 3)
+            string fstring = (f).ToString();
+            if (fstring.Length <= 4)
                 return false;
             int v1 = int.Parse(fstring[fstring.Length - 1].ToString());
             int v2 = int.Parse(fstring[fstring.Length - 2].ToString());
