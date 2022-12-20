@@ -21,7 +21,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
             set
             {
                 byte[] gameBin = File.ReadAllBytes(GamePath);
-                byte[] toWrite = BitConverter.GetBytes(value.Decimal);
+                byte[] toWrite = BitConverter.GetBytes((float)value.Decimal);
                 toWrite.CopyTo(gameBin, AspectRatioIndexInBinary);
                 File.WriteAllBytes(GamePath, gameBin);
             }
@@ -35,7 +35,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
                 byte[] gameBin = File.ReadAllBytes(GamePath);
 
                 byte[] cod4mw2 = { 0xCD, 0xCC, 0xCC, 0x3F };
-                byte[] bo2 = { 0x00, 0x50, 0x43, 0xC7 };
+                byte[] bo2 = { 0x1C, 0x2E, 0x4D, 0x3B };
                 byte[] mw3 = { 0xCD, 0xCC, 0xCC, 0x3F };
                 byte[] mw3sp = { 0x00, 0x00, 0x88, 0x40 };
                 byte[] bo1 = { 0xD2, 0x53, 0xFB, 0x40 };
@@ -43,7 +43,7 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
                 byte[] wawsp = { 0x00, 0xFF, 0x7F, 0x3F };
 
                 if (GameName.Contains("t6"))
-                    return gameBin.IndexOf(bo2, 1).FirstOrDefault() - 4;
+                    return gameBin.IndexOf(bo2, 1).FirstOrDefault() + 4;
                 else if (GameName.Contains("iw5mp"))
                     return gameBin.IndexOf(mw3, 1).FirstOrDefault() + 4;
                 else if (GameName.Contains("iw5sp"))

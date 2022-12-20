@@ -36,11 +36,11 @@ namespace CallofDutyAspectRatioTool.Core.CallofDuty.AspectRatio.Modifiers
 
                     if (GameName.Contains("iw3xo"))
                     {
-                        editor.WriteDvar("r_aspectRatio_custom", value.Decimal.ToString());
+                        editor.WriteDvar("r_aspectRatio_custom", ((float)value.Decimal).ToString());
                     }
                     else if (GameName.Contains("iw4"))
                     {
-                        editor.WriteDvar("r_customAspectRatio", value.Decimal.ToString());
+                        editor.WriteDvar("r_customAspectRatio", ((float)value.Decimal).ToString());
                     }
                 }
             }

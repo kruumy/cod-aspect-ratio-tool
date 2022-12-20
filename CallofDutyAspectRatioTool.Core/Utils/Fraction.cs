@@ -1,7 +1,9 @@
-﻿using System;
+using System;
+using System.Runtime.InteropServices;
 
 namespace CallofDutyAspectRatioTool.Core.Utils
 {
+    [Serializable, StructLayout(LayoutKind.Sequential)]
     public struct Fraction
     {
         public long Numerator { get; set; }
@@ -15,13 +17,9 @@ namespace CallofDutyAspectRatioTool.Core.Utils
             }
             set
             {
-                // To handle if value is a float and is repeating, probably not the best solution.
-                string fstring = ((float)value).ToString();
-                int v1 = int.Parse(fstring[fstring.Length - 1].ToString()) - 1;
-                int v2 = int.Parse(fstring[fstring.Length - 2].ToString());
-                int v3 = int.Parse(fstring[fstring.Length - 3].ToString());
-                if (v1 == v2 && v2 == v3)
-                    value = RepeatingFloatToDouble((float)value);
+                // c# does not handle repeating floats to double, so i had to manually make a bad solution
+                if (((float)value).IsRepeating())
+                    value = ((float)value).RepeatingFloatToDouble();
 
                 long fractionNumerator = (long)value;
                 double fractionDenominator = 1;
@@ -41,17 +39,6 @@ namespace CallofDutyAspectRatioTool.Core.Utils
                 Numerator = fractionNumerator * Math.Sign(value);
                 Denominator = (long)fractionDenominator;
             }
-        }
-
-        public static double RepeatingFloatToDouble(float f)
-        {
-            char[] fstring = f.ToString().ToCharArray();
-            char lastNum = fstring[fstring.Length - 2];
-            fstring[fstring.Length - 1] = lastNum;
-            string fstrings = new string(fstring);
-            for (int i = 0; i < 16; i++)
-                fstrings += lastNum;
-            return double.Parse(fstrings);
         }
 
         public static Fraction NaN => new Fraction()
